@@ -9,6 +9,7 @@ const config = {
     '@bigcommerce/catalyst/next',
     '@bigcommerce/catalyst/prettier',
   ],
+  plugins: ["import"],
   rules: {
     '@typescript-eslint/naming-convention': 'off',
     '@next/next/no-html-link-for-pages': 'off',
