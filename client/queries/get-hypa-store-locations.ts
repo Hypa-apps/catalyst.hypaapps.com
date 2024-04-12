@@ -5,7 +5,10 @@ export const getHypaStoreLocations = async (
   channelId: string,
   groupId?: string,
 ): Promise<StoreLocatorResult> => {
-  const path = `https://storelocator.space48apps.com/store-locator/${storeHash}/${channelId}${groupId ? `/${groupId}` : ''}`;
+  const path = `https://storelocator.hypaapps.com/store-locator/${storeHash}/${channelId}${groupId ? `/${groupId}` : ''}`;
+
+  // eslint-disable-next-line no-console
+  console.log(`Store locator API path: ${path}`);
 
   try {
     const response = await fetch(path);
@@ -14,6 +17,9 @@ export const getHypaStoreLocations = async (
 
     return data.data;
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Store locator error', error);
+
     return {
       locations: [],
       allTags: [],

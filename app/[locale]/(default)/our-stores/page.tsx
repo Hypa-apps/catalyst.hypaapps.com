@@ -7,8 +7,8 @@ import { getHypaStoreLocations } from '~/client/queries/get-hypa-store-locations
 
 export default async function OurStores() {
   const { locations, allTags, active } = await getHypaStoreLocations(
-    process.env.NEXT_PUBLIC_BIGCOMMERCE_STORE_HASH ?? '',
-    process.env.NEXT_PUBLIC_BIGCOMMERCE_CHANNEL_ID ?? '1',
+    process.env.BIGCOMMERCE_STORE_HASH ?? '',
+    process.env.BIGCOMMERCE_CHANNEL_ID ?? '1',
   );
 
   return (
@@ -20,7 +20,7 @@ export default async function OurStores() {
           active={active}
           allTags={allTags}
           locations={locations}
-          mapboxApiKey={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
+          mapboxApiKey={process.env.MAPBOX_API_KEY}
         />
       </div>
     </div>
