@@ -5,7 +5,7 @@ export const getHypaStoreLocations = async (
   channelId: string,
   groupId?: string,
 ): Promise<StoreLocatorResult> => {
-  const path = `https://storelocator.space48apps.com/store-locator/${storeHash}/${channelId}${groupId ? `/${groupId}` : ''}`;
+  const path = `https://storelocator.hypaapps.com/store-locator/${storeHash}/${channelId}${groupId ? `/${groupId}` : ''}`;
 
   try {
     const response = await fetch(path);
