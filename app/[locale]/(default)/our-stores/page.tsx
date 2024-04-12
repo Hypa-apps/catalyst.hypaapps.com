@@ -5,8 +5,6 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { getHypaStoreLocations } from '~/client/queries/get-hypa-store-locations';
 
-
-
 export default async function OurStores() {
   const { locations, allTags, active } = await getHypaStoreLocations(
     process.env.NEXT_PUBLIC_BIGCOMMERCE_STORE_HASH ?? '',
