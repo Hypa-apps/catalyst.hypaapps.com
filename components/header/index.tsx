@@ -14,7 +14,7 @@ import {
 } from '@bigcommerce/components/navigation-menu';
 import { getSessionCustomerId } from '~/auth';
 import { getCustomerGroupId } from '~/client/queries/get-customer-group-id';
-import { getMenu } from '~/client/queries/get-hypa-mega-menu';
+import { getHypaMenuItems } from '~/client/queries/get-hypa-menu-items';
 import { Link } from '~/components/link';
 
 import { QuickSearch } from '../quick-search';
@@ -29,7 +29,7 @@ export const Header = async ({ cart }: { cart: ReactNode }) => {
   const customerId = await getSessionCustomerId();
   const menuItems =
     process.env.BIGCOMMERCE_STORE_HASH && process.env.HYPA_MENU_CODE
-      ? await getMenu(process.env.BIGCOMMERCE_STORE_HASH, process.env.HYPA_MENU_CODE)
+      ? await getHypaMenuItems(process.env.BIGCOMMERCE_STORE_HASH, process.env.HYPA_MENU_CODE)
       : [];
   const customerGroupId = await getCustomerGroupId();
 
