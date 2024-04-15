@@ -16,6 +16,7 @@
   "dependencies": {
     "@bigcommerce/catalyst-client": "^0.1.1",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@hypa-apps/mega-menu-builder": "^0.0.5",
     "@hypa-apps/store-locator": "^0.0.8",
     "@icons-pack/react-simple-icons": "^9.2.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",

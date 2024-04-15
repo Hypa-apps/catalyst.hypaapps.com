@@ -1,5 +1,7 @@
+import { MegaMenuBuilder } from '@hypa-apps/mega-menu-builder';
 import { ShoppingCart, User } from 'lucide-react';
 import { ReactNode, Suspense } from 'react';
+import '@hypa-apps/mega-menu-builder/dist/css/mega-menu-builder.css';
 
 import { Button } from '@bigcommerce/components/button';
 import {
@@ -11,6 +13,8 @@ import {
   NavigationMenuToggle,
 } from '@bigcommerce/components/navigation-menu';
 import { getSessionCustomerId } from '~/auth';
+import { getCustomerGroupId } from '~/client/queries/get-customer-group-id';
+import { getMenu } from '~/client/queries/get-hypa-mega-menu';
 import { Link } from '~/components/link';
 
 import { QuickSearch } from '../quick-search';
@@ -20,8 +24,14 @@ import { HeaderNav } from './_actions/header-nav';
 import { logout } from './_actions/logout';
 import { CartLink } from './cart';
 
+
 export const Header = async ({ cart }: { cart: ReactNode }) => {
   const customerId = await getSessionCustomerId();
+  const menuItems =
+    process.env.BIGCOMMERCE_STORE_HASH && process.env.HYPA_MENU_CODE
+      ? await getMenu(process.env.BIGCOMMERCE_STORE_HASH, process.env.HYPA_MENU_CODE)
+      : [];
+  const customerGroupId = await getCustomerGroupId();
 
   return (
     <header>
@@ -32,7 +42,19 @@ export const Header = async ({ cart }: { cart: ReactNode }) => {
           </Link>
         </NavigationMenuLink>
 
-        <HeaderNav className="hidden xl:flex" />
+        {process.env.HYPA_MENU_CODE && process.env.BIGCOMMERCE_STORE_HASH ? (
+          <MegaMenuBuilder
+            className="hidden lg:block"
+            code={process.env.HYPA_MENU_CODE}
+            customerGroupId={customerGroupId}
+            customerId={customerId}
+            menuItems={menuItems}
+            storeHash={process.env.BIGCOMMERCE_STORE_HASH}
+            theme="desktop"
+          />
+        ) : (
+          <HeaderNav className="hidden xl:flex" />
+        )}
 
         <div className="flex">
           <NavigationMenuList className="h-full">
@@ -149,9 +171,20 @@ export const Header = async ({ cart }: { cart: ReactNode }) => {
           </NavigationMenuList>
         </div>
 
-        <NavigationMenuCollapsed>
-          <HeaderNav inCollapsedNav />
-        </NavigationMenuCollapsed>
+        {process.env.HYPA_MENU_CODE && process.env.BIGCOMMERCE_STORE_HASH ? (
+          <NavigationMenuCollapsed className="px-0 sm:px-0">
+            <MegaMenuBuilder
+              code={process.env.HYPA_MENU_CODE}
+              menuItems={menuItems}
+              storeHash={process.env.BIGCOMMERCE_STORE_HASH}
+              theme="mobile"
+            />
+          </NavigationMenuCollapsed>
+        ) : (
+          <NavigationMenuCollapsed>
+            <HeaderNav inCollapsedNav />
+          </NavigationMenuCollapsed>
+        )}
       </NavigationMenu>
     </header>
   );
