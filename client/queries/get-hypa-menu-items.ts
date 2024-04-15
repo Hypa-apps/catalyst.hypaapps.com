@@ -1,7 +1,7 @@
 import { MenuItem } from '@hypa-apps/mega-menu-builder/dist/types';
 
-export const getMenu = async (storeHash: string, menuCode: string): Promise<MenuItem[]> => {
-  const path = `https://megamenu.space48apps.com/megamenubuilder/${storeHash}/${menuCode}`;
+export const getHypaMenuItems = async (storeHash: string, menuCode: string): Promise<MenuItem[]> => {
+  const path = `https://megamenu.hypaapps.com/megamenubuilder/${storeHash}/${menuCode}`;
 
   try {
     const response = await fetch(path);
